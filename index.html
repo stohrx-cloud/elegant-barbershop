@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elegant Barbershop | Haircuts & Beard Styles in Oakville</title>
+<meta name="description" content="Expert haircuts and beard styles in Oakville since 2008. Men's cuts, fades, kids and senior cuts at 1140 Winston Churchill Blvd. Book online.">
+<meta name="theme-color" content="#0b0b0c">
+<link rel="icon" href="assets/logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css">
+<link rel="preload" as="image" href="assets/cut1.webp">
+<script>
+  // Hide reveal targets only when motion will actually run; GSAP clears this.
+  if (matchMedia('(prefers-reduced-motion: no-preference)').matches) document.documentElement.classList.add('motion');
+  setTimeout(function () { if (!window.gsap) document.documentElement.classList.remove('motion'); }, 2500);
+</script>
+<style>
+  :root {
+    --bg: #0b0b0c;
+    --surface: #151517;
+    --surface-2: #1c1c1f;
+    --line: #2a2a2e;
+    --text: #eeece7;
+    --muted: #a5a5ab;
+    --gold: #e8bf47;
+    --gold-ink: #141310;
+    --display: "Big Shoulders Display", "Arial Narrow", sans-serif;
+    --body: "Geist", system-ui, sans-serif;
+    --head: 72px;
+    --pad: clamp(16px, 4vw, 56px);
+    --max: 1360px;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: var(--head); }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 400 16px/1.6 var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 900; text-transform: uppercase; line-height: .9; letter-spacing: -.005em; margin: 0; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+  /* Buttons: all sharp corners, one rule for the whole page */
+  .btn { display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 24px; font: 800 19px/1 var(--display); text-transform: uppercase; letter-spacing: .04em; text-decoration: none; white-space: nowrap; border: 1px solid transparent; transition: transform .25s cubic-bezier(.16,1,.3,1), background-color .25s, color .25s, border-color .25s; }
+  .btn i { font-size: 18px; }
+  .btn:active { transform: translateY(1px) scale(.98); }
+  .btn-gold { background: var(--gold); color: var(--gold-ink); }
+  .btn-gold:hover { background: #f3cf61; }
+  .btn-line { border-color: #4a4a50; color: var(--text); }
+  .btn-line:hover { border-color: var(--gold); color: var(--gold); }
+  .btn-sm { height: 42px; padding: 0 18px; font-size: 17px; }
+
+  /* Header */
+  .site-head { position: sticky; top: 0; z-index: 20; height: var(--head); background: rgba(11,11,12,.94); border-bottom: 1px solid var(--line); }
+  @supports (backdrop-filter: blur(1px)) { .site-head { background: rgba(11,11,12,.82); backdrop-filter: blur(14px); } }
+  .head-in { height: 100%; display: flex; align-items: center; gap: 28px; }
+  .brand img { height: 54px; width: auto; }
+  .nav { display: flex; gap: 30px; margin-left: auto; }
+  .nav a, .tel { font: 800 18px/1 var(--display); text-transform: uppercase; letter-spacing: .06em; text-decoration: none; color: var(--text); transition: color .2s; }
+  .nav a:hover, .tel:hover { color: var(--gold); }
+  .tel { display: inline-flex; align-items: center; gap: 8px; }
+  .tel i { color: var(--gold); font-size: 18px; }
+  .menu-btn { display: none; margin-left: auto; width: 42px; height: 42px; background: none; border: 1px solid #4a4a50; color: var(--text); font-size: 22px; cursor: pointer; }
+  .menu-panel { display: none; }
+
+  /* Hero */
+  .hero { display: grid; grid-template-columns: 7fr 5fr; min-height: calc(100dvh - var(--head)); }
+  .hero-copy { display: flex; flex-direction: column; justify-content: flex-end; padding: 64px var(--pad) clamp(40px, 7vh, 88px) max(var(--pad), calc((100vw - var(--max)) / 2 + var(--pad))); }
+  .hero h1 { font-size: clamp(60px, 7.6vw, 132px); }
+  .hero h1 .ln { display: block; overflow: hidden; padding-bottom: .04em; }
+  .hero h1 .ln > span { display: block; }
+  .hero h1 .amp { color: var(--gold); }
+  .hero p { max-width: 34ch; margin: 28px 0 0; font-size: clamp(17px, 1.4vw, 20px); color: var(--muted); }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .hero-photo { position: relative; overflow: hidden; background: var(--surface); }
+  .hero-photo img { position: absolute; inset: -6% 0; width: 100%; height: 112%; object-fit: cover; object-position: 50% 40%; }
+
+  /* Story */
+  .story { padding: clamp(80px, 12vw, 160px) 0 clamp(72px, 10vw, 128px); }
+  .story-frame { overflow: hidden; height: clamp(320px, 62vh, 640px); background: var(--surface); }
+  .story-frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; }
+  .story-text { margin-top: clamp(48px, 7vw, 88px); }
+  .story h2 { font-size: clamp(52px, 8vw, 120px); }
+  .story-text p { max-width: 60ch; margin: 28px 0 0; font-size: clamp(17px, 1.35vw, 20px); color: var(--muted); }
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: clamp(48px, 6vw, 72px); padding-top: 32px; border-top: 1px solid var(--line); }
+  .stat b { display: block; font: 900 clamp(48px, 6vw, 88px)/.9 var(--display); color: var(--gold); text-transform: uppercase; }
+  .stat span { display: block; margin-top: 10px; color: var(--muted); font-size: 15px; }
+
+  /* Barber pole band */
+  .pole { height: 18px; overflow: hidden; }
+  .pole div { width: 200%; height: 100%; background: repeating-linear-gradient(-45deg, #c8202e 0 18px, #eeece7 18px 36px, #1f4fa8 36px 54px, #eeece7 54px 72px); }
+
+  /* Services */
+  .services { padding: clamp(80px, 11vw, 150px) 0; }
+  .services h2 { font-size: clamp(52px, 8vw, 120px); }
+  .services .lede { max-width: 52ch; margin: 24px 0 0; color: var(--muted); font-size: clamp(16px, 1.3vw, 19px); }
+  .svc-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: clamp(40px, 5vw, 64px); }
+  .svc { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); text-decoration: none; transition: border-color .3s; }
+  .svc:hover { border-color: var(--gold); }
+  .svc.wide { grid-column: span 2; }
+  .svc.alt { background: var(--surface-2); }
+  .svc-img { aspect-ratio: 2 / 1; overflow: hidden; }
+  .svc-img img { object-position: 50% 35%; }
+  .svc-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.16,1,.3,1); }
+  .svc:hover .svc-img img { transform: scale(1.05); }
+  .svc-body { flex: 1; display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 8px 16px; padding: 24px; min-height: 170px; }
+  .svc h3 { grid-column: 1 / -1; align-self: start; font-size: clamp(28px, 2.4vw, 36px); line-height: .95; }
+  .svc .meta { color: var(--muted); font-size: 15px; }
+  .svc .meta i { color: var(--gold); margin-left: 6px; transition: transform .3s; display: inline-block; vertical-align: -2px; }
+  .svc:hover .meta i { transform: translateX(4px); }
+  .svc .price { font: 900 clamp(44px, 4vw, 60px)/.85 var(--display); color: var(--gold); }
+  .svc .price sup { font-size: .45em; vertical-align: .9em; margin-right: 2px; }
+  @media (min-width: 901px) {
+    .svc.wide { flex-direction: row; }
+    .svc.wide .svc-img { flex: 0 0 50%; aspect-ratio: auto; }
+    .svc-body { min-height: 250px; }
+  }
+  .svc-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 28px; color: var(--muted); font-size: 15px; }
+  .svc-foot a { color: var(--text); text-underline-offset: 4px; }
+  .svc-foot a:hover { color: var(--gold); }
+
+  /* Reviews */
+  .reviews { padding: clamp(80px, 11vw, 150px) 0; background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .rev-grid { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(40px, 6vw, 96px); align-items: start; }
+  .rev-score { position: sticky; top: calc(var(--head) + 40px); }
+  .rev-score h2 { font-size: clamp(44px, 5.4vw, 80px); }
+  .score { display: flex; align-items: flex-end; gap: 20px; margin-top: 32px; }
+  .score b { font: 900 clamp(96px, 11vw, 168px)/.8 var(--display); color: var(--gold); }
+  .stars { color: var(--gold); font-size: 22px; letter-spacing: 2px; }
+  .score small { display: block; margin-top: 8px; color: var(--muted); font-size: 15px; }
+  .rev-photo { margin-top: 40px; aspect-ratio: 4 / 3; overflow: hidden; }
+  .rev-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 40% 35%; }
+  .quotes { display: grid; gap: 0; }
+  .quote { margin: 0; padding: clamp(28px, 3.4vw, 44px) 0; border-bottom: 1px solid var(--line); }
+  .quote:first-child { padding-top: 0; }
+  .quote p { margin: 0; font-size: clamp(20px, 1.9vw, 27px); line-height: 1.4; font-weight: 500; }
+  .quote footer { margin-top: 18px; color: var(--muted); font-size: 15px; }
+  .quote footer strong { color: var(--text); font-weight: 600; }
+
+  /* Visit */
+  .visit { padding: clamp(80px, 11vw, 150px) 0; }
+  .visit-grid { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(40px, 5vw, 80px); align-items: stretch; }
+  .visit h2 { font-size: clamp(52px, 7vw, 108px); }
+  .addr { margin: 28px 0 0; font-size: clamp(18px, 1.5vw, 21px); font-style: normal; }
+  .addr a { text-decoration: none; }
+  .addr a:hover { color: var(--gold); }
+  .addr span { display: block; }
+  .contact-list { display: grid; gap: 10px; margin: 20px 0 0; padding: 0; list-style: none; }
+  .contact-list a { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+  .contact-list a:hover { color: var(--gold); }
+  .contact-list i { color: var(--gold); font-size: 20px; }
+  .hours { width: 100%; margin-top: 40px; border-collapse: collapse; font-size: 16px; }
+  .hours caption { text-align: left; font: 800 22px/1 var(--display); text-transform: uppercase; letter-spacing: .04em; padding-bottom: 14px; }
+  .hours td { padding: 9px 0; }
+  .hours td:last-child { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .hours tr.today td { color: var(--gold); font-weight: 600; }
+  .hours tbody { border-top: 1px solid var(--line); }
+  .map { position: relative; min-height: 460px; background: var(--surface); border: 1px solid var(--line); overflow: hidden; }
+  .map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: grayscale(1) invert(.9) contrast(.9); }
+
+  /* Footer */
+  .site-foot { padding: clamp(64px, 8vw, 104px) 0 32px; border-top: 1px solid var(--line); }
+  .foot-top { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: end; }
+  .foot-logo { width: min(560px, 100%); height: auto; }
+  .foot-cta p { max-width: 36ch; margin: 0 0 20px; color: var(--muted); }
+  .foot-bot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+  .foot-bot nav { display: flex; flex-wrap: wrap; gap: 24px; }
+  .foot-bot a { text-decoration: none; color: var(--text); font: 800 16px/1 var(--display); text-transform: uppercase; letter-spacing: .06em; }
+  .foot-bot a:hover { color: var(--gold); }
+
+  /* Motion start states (only when GSAP will run) */
+  html.motion [data-rv] { opacity: 0; }
+  html.motion .hero h1 .ln > span { transform: translateY(110%); }
+
+  @media (max-width: 1100px) {
+    .nav { gap: 22px; }
+    .tel span { display: none; }
+  }
+  @media (max-width: 900px) {
+    .nav, .head-in > .tel, .head-in > .btn { display: none; }
+    .menu-btn { display: grid; place-items: center; }
+    .menu-panel { position: fixed; inset: var(--head) 0 auto 0; z-index: 19; background: var(--bg); border-bottom: 1px solid var(--line); padding: 16px var(--pad) 28px; }
+    .menu-panel.open { display: grid; gap: 4px; }
+    .menu-panel a:not(.btn) { padding: 12px 0; font: 900 36px/1 var(--display); text-transform: uppercase; text-decoration: none; border-bottom: 1px solid var(--line); }
+    .menu-panel .cta-row { margin-top: 20px; }
+    .hero { grid-template-columns: 1fr; min-height: 0; }
+    .hero-photo { order: -1; height: 34vh; min-height: 220px; }
+    .hero-copy { padding-top: 28px; padding-bottom: 48px; }
+    .hero p { margin-top: 18px; }
+    .hero .cta-row { margin-top: 24px; }
+    .svc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .rev-grid, .visit-grid { grid-template-columns: 1fr; }
+    .rev-score { position: static; }
+    .map { min-height: 340px; }
+    .foot-top { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .brand img { height: 42px; }
+    .hero h1 { font-size: min(13.5vw, 64px); }
+    .svc-body { padding: 18px; min-height: 150px; }
+    .svc h3 { font-size: 26px; }
+    .svc .price { font-size: 42px; }
+    .stats { grid-template-columns: 1fr; gap: 28px; }
+    .cta-row .btn { flex: 1 1 auto; justify-content: center; }
+  }
+  @media (max-width: 380px) {
+    .svc-grid { grid-template-columns: 1fr; }
+    .svc.wide { grid-column: auto; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap head-in">
+    <a class="brand" href="#top" aria-label="Elegant Barbershop, home"><img src="assets/logo.webp" width="722" height="257" alt="Elegant Barbershop"></a>
+    <nav class="nav" aria-label="Main">
+      <a href="#services">Services</a>
+      <a href="#story">About</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#visit">Visit</a>
+    </nav>
+    <a class="tel" href="tel:+19052879302"><i class="ph ph-phone" aria-hidden="true"></i><span>905-287-9302</span><span class="sr">Call the shop</span></a>
+    <a class="btn btn-gold btn-sm" href="https://booksy.com/en-ca/28806_elegant-barbershop_barbershop_773207_oakville" target="_blank" rel="noopener">Book Now</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><i class="ph ph-list" aria-hidden="true"></i><span class="sr">Menu</span></button>
+  </div>
+</header>
+<div class="menu-panel" id="menu">
+  <a href="#services">Services</a>
+  <a href="#story">About</a>
+  <a href="#reviews">Reviews</a>
+  <a href="#visit">Visit</a>
+  <div class="cta-row">
+    <a class="btn btn-gold" href="https://booksy.com/en-ca/28806_elegant-barbershop_barbershop_773207_oakville" target="_blank" rel="noopener">Book Now</a>
+    <a class="btn btn-line" href="tel:+19052879302"><i class="ph ph-phone" aria-hidden="true"></i>905-287-9302</a>
+  </div>
+</div>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-copy">
+      <h1><span class="ln"><span>Expert</span></span><span class="ln"><span>haircuts</span></span><span class="ln"><span><span class="amp">&amp;</span> beard styles</span></span></h1>
+      <p data-rv>Quality barber services since 2008 for all styles, on Winston Churchill Blvd in Oakville.</p>
+      <div class="cta-row" data-rv>
+        <a class="btn btn-gold" href="https://booksy.com/en-ca/28806_elegant-barbershop_barbershop_773207_oakville" target="_blank" rel="noopener">Book Now<i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+        <a class="btn btn-line" href="tel:+19052879302"><i class="ph ph-phone" aria-hidden="true"></i>905-287-9302</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="assets/cut1.webp" width="1200" height="1200" alt="A slicked-back taper, finished in the chair at Elegant Barbershop" fetchpriority="high">
+    </div>
+  </section>
+
+  <section class="story" id="story">
+    <div class="wrap">
+      <div class="story-frame"><img src="assets/shop.webp" width="1800" height="1200" alt="The Elegant Barbershop storefront with its red awning at 1140 Winston Churchill Blvd" loading="lazy"></div>
+      <div class="story-text">
+        <h2 data-rv>Our story</h2>
+        <p data-rv>At Elegant Barbershop, we believe that a great haircut can make a big difference in how you feel. That's why we're passionate about providing our clients with the highest quality haircuts and grooming services. Our experienced barbers are dedicated to ensuring that you leave our shop feeling your best.</p>
+        <div class="stats">
+          <div class="stat" data-rv><b>2008</b><span>Cutting hair since</span></div>
+          <div class="stat" data-rv><b>7 days</b><span>Open every day of the week</span></div>
+          <div class="stat" data-rv><b>5.0</b><span>From 135 Google reviews</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="pole" aria-hidden="true"><div></div></div>
+
+  <section class="services" id="services">
+    <div class="wrap">
+      <h2 data-rv>Services &amp; prices</h2>
+      <p class="lede" data-rv>Every service can be booked online. Pick a time on Booksy, or call the shop.</p>
+      <div class="svc-grid">
+        <a class="svc wide" data-rv href="https://booksy.com/en-ca/28806_elegant-barbershop_barbershop_773207_oakville" target="_blank" rel="noopener">
+          <div class="svc-img"><img src="assets/cut2.webp" width="1000" height="1000" alt="A textured crop with a skin taper and a shaped beard" loading="lazy"></div>
+          <div class="svc-body"><h3>Men's Cut</h3><span class="meta">25 min. Book<i class="ph ph-arrow-right" aria-hidden="true"></i></span><span class="price"><sup>$</sup>30</span></div>
+        </a>
+        <a class="svc" data-rv href="https://booksy.com/en-ca/28806_elegant-barbershop_barbershop_773207_oakville" target="_blank" rel="noopener">
+          <div class="svc-body"><h3>Kids Cut</h3><span class="meta">20 min. Book<i class="ph ph-arrow-right" aria-hidden="true"></i></span><span class="price"><sup>$</sup>28</span></div>
+        </a>
+        <a class="svc alt" data-rv href="https://booksy.com/en-ca/28806_elegant-barbershop_barbershop_773207_oakville" target="_blank" rel="noopener">
+          <div class="svc-body"><h3>Senior Cut</h3><span class="meta">20 min. Book<i class="ph ph-arrow-right" aria-hidden="true"></i></span><span class="price"><sup>$</sup>28</span></div>
+        </a>
+        <a class="svc alt" data-rv href="https://booksy.com/en-ca/28806_elegant-barbershop_barbershop_773207_oakville" target="_blank" rel="noopener">
+          <div class="svc-body"><h3>Buzz Cut</h3><span class="meta">20 min. Book<i class="ph ph-arrow-right" aria-hidden="true"></i></span><span class="price"><sup>$</sup>25</span></div>
+        </a>
+        <a class="svc" data-rv href="https://booksy.com/en-ca/28806_elegant-barbershop_barbershop_773207_oakville" target="_blank" rel="noopener">
+          <div class="svc-body"><h3>Head Shave</h3><span class="meta">20 min. Book<i class="ph ph-arrow-right" aria-hidden="true"></i></span><span class="price"><sup>$</sup>26</span></div>
+        </a>
+        <a class="svc wide" data-rv href="https://booksy.com/en-ca/28806_elegant-barbershop_barbershop_773207_oakville" target="_blank" rel="noopener">
+          <div class="svc-img"><img src="assets/cut5.webp" width="1000" height="1000" alt="A zero fade with a hard side part" loading="lazy"></div>
+          <div class="svc-body"><h3>Zero Fade</h3><span class="meta">30 min. Book<i class="ph ph-arrow-right" aria-hidden="true"></i></span><span class="price"><sup>$</sup>33</span></div>
+        </a>
+        <a class="svc wide" data-rv href="https://booksy.com/en-ca/28806_elegant-barbershop_barbershop_773207_oakville" target="_blank" rel="noopener">
+          <div class="svc-img"><img src="assets/cut3.webp" width="1000" height="1000" alt="A grey beard lined up clean along the cheek and neck" loading="lazy"></div>
+          <div class="svc-body"><h3>Beard Line Up</h3><span class="meta">15 min. Book<i class="ph ph-arrow-right" aria-hidden="true"></i></span><span class="price"><sup>$</sup>25</span></div>
+        </a>
+        <a class="svc wide alt" data-rv href="https://booksy.com/en-ca/28806_elegant-barbershop_barbershop_773207_oakville" target="_blank" rel="noopener">
+          <div class="svc-body"><h3>Beard Only Machine</h3><span class="meta">15 min. Book<i class="ph ph-arrow-right" aria-hidden="true"></i></span><span class="price"><sup>$</sup>18</span></div>
+        </a>
+      </div>
+      <div class="svc-foot" data-rv>
+        <span>Prices in Canadian dollars.</span>
+        <a href="https://www.instagram.com/_elegant_barbershop" target="_blank" rel="noopener">See more cuts on Instagram</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews" id="reviews">
+    <div class="wrap rev-grid">
+      <div class="rev-score">
+        <h2 data-rv>What clients say</h2>
+        <div class="score" data-rv>
+          <b>5.0</b>
+          <div>
+            <div class="stars" aria-hidden="true"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+            <small>135 reviews on Google</small>
+          </div>
+        </div>
+        <div class="rev-photo" data-rv><img src="assets/cut4.webp" width="1000" height="1000" alt="A young client with a textured cut, seen in the shop mirror" loading="lazy"></div>
+      </div>
+      <div class="quotes">
+        <blockquote class="quote" data-rv>
+          <p>“This was my second time getting a haircut from Admon, and both experiences have been great! He really listens to what you want.”</p>
+          <footer><strong>Fadi</strong>, Booksy review</footer>
+        </blockquote>
+        <blockquote class="quote" data-rv>
+          <p>“Excellent all around! Great hair cut at a great price. Highly recommend!”</p>
+          <footer><strong>Marcus</strong>, Booksy review</footer>
+        </blockquote>
+        <blockquote class="quote" data-rv>
+          <p>“I brought my teenage son in for the first time. The barber did a great job and my son was happy.”</p>
+          <footer><strong>Kamran</strong>, Booksy review</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="visit" id="visit">
+    <div class="wrap visit-grid">
+      <div>
+        <h2 data-rv>Visit the shop</h2>
+        <address class="addr" data-rv>
+          <a href="https://maps.google.com/?q=Elegant+Barbershop,+1140+Winston+Churchill+Blvd,+Oakville,+ON+L6J+0A3" target="_blank" rel="noopener"><span>1140 Winston Churchill Blvd, Unit A4</span><span>Oakville, ON L6J 0A3</span></a>
+        </address>
+        <ul class="contact-list" data-rv>
+          <li><a href="tel:+19052879302"><i class="ph ph-phone" aria-hidden="true"></i>905-287-9302</a></li>
+          <li><a href="https://www.instagram.com/_elegant_barbershop" target="_blank" rel="noopener"><i class="ph ph-instagram-logo" aria-hidden="true"></i>@_elegant_barbershop</a></li>
+        </ul>
+        <table class="hours" data-rv>
+          <caption>Hours</caption>
+          <tbody>
+            <tr data-day="1"><td>Monday</td><td>9:30 am to 7 pm</td></tr>
+            <tr data-day="2"><td>Tuesday</td><td>9:30 am to 7 pm</td></tr>
+            <tr data-day="3"><td>Wednesday</td><td>9:30 am to 7 pm</td></tr>
+            <tr data-day="4"><td>Thursday</td><td>9:30 am to 7 pm</td></tr>
+            <tr data-day="5"><td>Friday</td><td>9:30 am to 7 pm</td></tr>
+            <tr data-day="6"><td>Saturday</td><td>9 am to 6 pm</td></tr>
+            <tr data-day="0"><td>Sunday</td><td>10 am to 5 pm</td></tr>
+          </tbody>
+        </table>
+        <div class="cta-row" data-rv>
+          <a class="btn btn-gold" href="https://booksy.com/en-ca/28806_elegant-barbershop_barbershop_773207_oakville" target="_blank" rel="noopener">Book Now</a>
+          <a class="btn btn-line" href="https://maps.google.com/?q=Elegant+Barbershop,+1140+Winston+Churchill+Blvd,+Oakville,+ON+L6J+0A3" target="_blank" rel="noopener"><i class="ph ph-map-pin" aria-hidden="true"></i>Get Directions</a>
+        </div>
+      </div>
+      <div class="map" data-rv>
+        <iframe title="Map to Elegant Barbershop" src="https://www.google.com/maps?q=Elegant+Barbershop,+1140+Winston+Churchill+Blvd,+Oakville,+ON+L6J+0A3&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <img class="foot-logo" src="assets/logo.webp" width="722" height="257" alt="Elegant Barbershop" loading="lazy">
+      <div class="foot-cta">
+        <p>Expert haircuts and beard styles in Oakville since 2008.</p>
+        <a class="btn btn-gold" href="https://booksy.com/en-ca/28806_elegant-barbershop_barbershop_773207_oakville" target="_blank" rel="noopener">Book Now</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <nav aria-label="Footer">
+        <a href="#services">Services</a>
+        <a href="#story">About</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#visit">Visit</a>
+        <a href="https://www.instagram.com/_elegant_barbershop" target="_blank" rel="noopener">Instagram</a>
+      </nav>
+      <span>© 2026 Elegant Barbershop. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous" defer></script>
+<script>
+  // Today's row in the hours table
+  var today = document.querySelector('.hours tr[data-day="' + new Date().getDay() + '"]');
+  if (today) today.className = 'today';
+
+  // Mobile menu
+  var btn = document.querySelector('.menu-btn'), panel = document.getElementById('menu');
+  function setMenu(open) { panel.classList.toggle('open', open); btn.setAttribute('aria-expanded', open); btn.firstElementChild.className = 'ph ' + (open ? 'ph-x' : 'ph-list'); }
+  btn.addEventListener('click', function () { setMenu(!panel.classList.contains('open')); });
+  panel.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+  addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+
+  addEventListener('DOMContentLoaded', function () {
+    if (!window.gsap) return;
+    gsap.registerPlugin(ScrollTrigger);
+    var mm = gsap.matchMedia();
+    mm.add('(prefers-reduced-motion: no-preference)', function () {
+      var ease = 'expo.out';
+      gsap.set('[data-rv]', { opacity: 0 });
+      gsap.set('.hero h1 .ln > span', { y: 0, yPercent: 110 });
+      // Hero: lines rise out of their masks, photo settles from a slight zoom
+      gsap.timeline({ defaults: { ease: ease } })
+        .fromTo('.hero-photo img', { scale: 1.18 }, { scale: 1, duration: 1.8 }, 0)
+        .to('.hero h1 .ln > span', { yPercent: 0, duration: 1.2, stagger: .12 }, .15)
+        .fromTo('.hero [data-rv]', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 1, stagger: .1 }, .55);
+      gsap.to('.hero-photo img', { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+
+      // Storefront opens up from a narrow window as it scrolls into view
+      gsap.fromTo('.story-frame', { clipPath: 'inset(14% 22% 14% 22%)' }, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'none', scrollTrigger: { trigger: '.story-frame', start: 'top 90%', end: 'center 55%', scrub: .6 } });
+      gsap.fromTo('.story-frame img', { scale: 1.25 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.story-frame', start: 'top 90%', end: 'center 55%', scrub: .6 } });
+
+      // The pole turns as you scroll, like the one out front
+      gsap.to('.pole div', { xPercent: -50, ease: 'none', scrollTrigger: { trigger: '.pole', start: 'top bottom', end: 'bottom top', scrub: true } });
+
+      // Everything else reveals once, in reading order
+      ScrollTrigger.batch('main > section:not(.hero) [data-rv]', {
+        start: 'top 88%', once: true,
+        onEnter: function (els) { gsap.fromTo(els, { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 1, ease: ease, stagger: .08, overwrite: true }); }
+      });
+    });
+    document.documentElement.classList.remove('motion');
+  });
+</script>
+</body>
+</html>
